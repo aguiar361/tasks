@@ -31,15 +31,23 @@ function App(): JSX.Element {
                     <Row>
                         <Col>
                             Dogs are so much better...
-                            <div style={{ background: "green" }}>
-                                <p> True </p>
-                            </div>
+                            <div
+                                style={{
+                                    backgroundColor: "red",
+                                    width: "600px",
+                                    height: "20px"
+                                }}
+                            ></div>
                         </Col>
                         <Col>
                             ...And cats are so much worse
-                            <div style={{ background: "green" }}>
-                                <p> True </p>
-                            </div>
+                            <div
+                                style={{
+                                    backgroundColor: "red",
+                                    width: "600px",
+                                    height: "20px"
+                                }}
+                            ></div>
                         </Col>
                     </Row>
                 </Container>

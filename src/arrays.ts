@@ -68,14 +68,12 @@ export const removeDollars = (amounts: string[]): number[] => {
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
     const newArr = messages.map((message: string): string =>
-        message.charAt[message.length - 1] === "!"
-            ? message.toUpperCase
-            : message
+        message.endsWith("!") ? message.toUpperCase() : message
     );
-    const newNewArr = newArr.filter(
-        (message: string): boolean => message.charAt[-1] === "?"
+    const finalArr = newArr.filter(
+        (message: string): boolean => !message.endsWith("?")
     );
-    return newNewArr;
+    return finalArr;
 };
 
 /**
@@ -83,11 +81,8 @@ export const shoutIfExclaiming = (messages: string[]): string[] => {
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    let count = 0;
-    const newArr = words.map((word: string): string =>
-        word.length > 4 ? (count += 1) : word
-    );
-    return count;
+    const newArr = words.filter((word: string): boolean => word.length < 4);
+    return newArr.length;
 }
 
 /**
@@ -96,7 +91,14 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    if (colors.length === 0) {
+        return true;
+    }
+    const cols = colors.every(
+        (color: string): boolean =>
+            color === "red" || color === "blue" || color === "green"
+    );
+    return cols;
 }
 
 /**
@@ -107,7 +109,16 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    if (addends.length === 0) {
+        return "0=0";
+    }
+    const sum = addends.reduce(
+        (total: number, num: number): number => (total += num)
+    );
+    const str: string[] = addends.map((num: number): string => num.toString());
+    let final: string = str.join("+");
+    final = sum + "=" + final;
+    return final;
 }
 
 /**
@@ -120,5 +131,26 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
+    if (values.length === 0) {
+        const ans = [0];
+        return ans;
+    }
+    const nonNeg = values.every((num: number): boolean => num > 0);
+    if (nonNeg) {
+        const sum = values.reduce(
+            (total: number, num: number): number => (total += num)
+        );
+        return [...values, sum];
+    } else {
+        const Neg = values.findIndex((num: number): boolean => num < 0);
+        const tmp = values.slice(0, Neg);
+        const sum = tmp.reduce(
+            (total: number, num: number): number => (total += num),
+            0
+        );
+        const final: number[] = [...values];
+        final.splice(Neg + 1, 0, sum);
+        return final;
+    }
     return [];
 }

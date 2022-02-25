@@ -1,4 +1,3 @@
-import Q from "q";
 import { Question, QuestionType } from "./interfaces/question";
 
 /**
@@ -87,15 +86,15 @@ export function toShortForm(question: Question): string {
  * Check the unit tests for more examples of what this looks like!
  */
 export function toMarkdown(question: Question): string {
-    let str = "# " + question.name + "\n" + question.body;
+    let finalStr = "# " + question.name + "\n" + question.body;
     if (question.type === "multiple_choice_question") {
-        str += question.options.reduce(
+        finalStr += question.options.reduce(
             (option: string, answer: string): string =>
                 option + "\n- " + answer,
             ""
         );
     }
-    return str;
+    return finalStr;
     /**let finalStr;
     if (question.type === "short_answer_question") {
         return str;
@@ -108,8 +107,7 @@ export function toMarkdown(question: Question): string {
                     "\n- " + option.toString().replace(",", "")
             );
     }
-    finalStr.replace(",", "");
-    return finalStr;**/
+finalStr.replace(",", "");**/
 }
 
 /**

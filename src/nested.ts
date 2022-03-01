@@ -1,7 +1,7 @@
 //import { idText } from "typescript";
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
-import { makeBlankQuestion } from "./objects";
+import { duplicateQuestion, makeBlankQuestion } from "./objects";
 
 /**
  * Consumes an array of questions and returns a new array with only the questions
@@ -214,20 +214,19 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType
 ): Question[] {
-    const id_index = questions.findIndex(
-        (question: Question): boolean => question.id === targetId
-    );
-    const deepCopy = questions.map(
-        (question: Question): Question => ({ ...question })
-    );
-    const modified = { ...questions[id_index] };
-    if (modified.type !== "multiple_choice_question") {
-        modified.options = [];
-    } else {
-        modified.type = newQuestionType;
-    }
-    deepCopy.splice(id_index, 1, modified);
-    return deepCopy;
+    const newArr = [
+        ...questions.map((question: Question): Question => {
+            if (question.id === targetId) {
+                if (newQuestionType !== "multiple_choice_question") {
+                    return { ...question, type: newQuestionType, options: [] };
+                } else {
+                    return { ...question, type: newQuestionType };
+                }
+            }
+            return question;
+        })
+    ];
+    return newArr;
 }
 
 /**
@@ -246,7 +245,22 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string
 ) {
-    return [];
+    return [
+        ...questions.map((question: Question): Question => {
+            const edited = {
+                ...question,
+                options: [...question.options]
+            };
+            if (question.id === targetId) {
+                if (targetOptionIndex === -1) {
+                    edited.options.push(newOption);
+                } else {
+                    edited.options.splice(targetOptionIndex, 1, newOption);
+                }
+            }
+            return edited;
+        })
+    ];
 }
 
 /***
@@ -263,11 +277,11 @@ export function duplicateQuestionInArray(
     const id_index = questions.findIndex(
         (question: Question): boolean => question.id === targetId
     );
-    const deepCopy = questions.map(
-        (question: Question): Question => ({ ...question })
+    const copyArr = [...questions];
+    copyArr.splice(
+        id_index + 1,
+        0,
+        duplicateQuestion(newId, copyArr[id_index])
     );
-    const modified = { ...questions[id_index], duplicateQuestionInArray };
-    modified.id = newId;
-    deepCopy.splice(id_index, 1, modified);
-    return deepCopy;
+    return copyArr;
 }

@@ -162,6 +162,8 @@ export function sameType(questions: Question[]): boolean {
             findQuestion = false;
             return findQuestion;
         }
+        findQuestion = true;
+        return findQuestion;
     });
     return findQuestion;
 }

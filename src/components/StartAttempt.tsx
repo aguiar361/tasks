@@ -7,11 +7,11 @@ export function StartAttempt(): JSX.Element {
 
     function PutInProgress(): void {
         checkProgress(!progress);
+        changeAttempts(attempts - 1);
     }
 
     function takeOutProgress(): void {
         checkProgress(!progress);
-        changeAttempts(attempts - 1);
     }
 
     function increaseAttempts(): void {

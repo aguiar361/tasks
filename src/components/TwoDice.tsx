@@ -18,11 +18,11 @@ export function TwoDice(): JSX.Element {
     return (
         <div>
             <Button onClick={() => changeDice1(d6())}>Roll Left</Button>
-            <Button onClick={() => changeDice2(d6())}>Roll Right</Button>
             Current Left ID:
-            <span data-testid="left-DieValue"> {leftdie} </span> Current right
-            ID:
-            <span data-testid="right-DieValue"> {rightdie} </span>
+            <span data-testid="left-die"> {leftdie} </span>
+            <Button onClick={() => changeDice2(d6())}>Roll Right</Button>
+            Current right ID:
+            <span data-testid="right-die"> {rightdie} </span>
             {leftdie === 1 && rightdie === 1 && <div>You Lose</div>}
             {leftdie !== 1 && leftdie === rightdie && <div>You Win</div>}
         </div>

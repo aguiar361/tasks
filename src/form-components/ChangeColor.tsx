@@ -20,8 +20,8 @@ export function ChangeColor(): JSX.Element {
         <div>
             <h3>Change Color</h3>
             <div>The current color is:{"  "}</div>
-            <span style={{ backgroundColor: chosen }}>
-                <span data-testid="colored-box">{chosen}</span>
+            <span data-testid="colored-box" style={{ backgroundColor: chosen }}>
+                <span>{chosen}</span>
             </span>
             <div>
                 {COLORS.map((color: string) => (

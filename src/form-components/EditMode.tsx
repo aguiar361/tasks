@@ -21,22 +21,29 @@ export function EditMode(): JSX.Element {
                     checked={editMode}
                     onChange={() => setEditMode(!editMode)}
                 />
+                {editMode && (
+                    <Form.Check
+                        type="checkbox"
+                        id="is-student-check"
+                        label="Student?"
+                        checked={isStudent}
+                        onChange={() => setStudent(!isStudent)}
+                    />
+                )}
             </div>
             <div>
                 {editMode ? (
-                    <Form.Group controlId="formStudentName">
-                        <Form.Label>Enter name: </Form.Label>
-                        <Form.Control value={name} onChange={updateName} />
-                    </Form.Group>
+                    <div>
+                        <Form.Group controlId="formStudentName">
+                            <Form.Label>Enter name: </Form.Label>
+                            <Form.Control value={name} onChange={updateName} />
+                        </Form.Group>
+                        {isStudent
+                            ? name + " is a student"
+                            : name + " is not a student"}
+                    </div>
                 ) : (
                     <div>
-                        <Form.Check
-                            type="checkbox"
-                            id="is-student-check"
-                            label="Student?"
-                            checked={isStudent}
-                            onChange={() => setStudent(!isStudent)}
-                        />
                         {isStudent
                             ? name + " is a student"
                             : name + " is not a student"}

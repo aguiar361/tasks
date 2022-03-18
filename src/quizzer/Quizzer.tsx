@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
 
-//import { QuestionView } from "./quizzer/QuestionView";
-//            <QuestionView></QuestionView>
+//import { QuizzesView } from "./quizzer/QuizzesView";
 
 export function Quizzer(): JSX.Element {
     return (

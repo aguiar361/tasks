@@ -30,6 +30,7 @@ export function QuestionView(): JSX.Element {
     return (
         <div>
             <h1>Quiz List: </h1>;
+            {/**Take logic from provided example of adding and removing movies */}
         </div>
     );
 }

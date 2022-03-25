@@ -2,6 +2,19 @@ import React from "react";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
+/**
+ * Add button so that quiz can only be added in edit mode
+ *      if in edit mode from button... then show add question stuff... maybe make new component and move add question?
+ * Add box to show number of questions in quiz
+ * -
+ * Add button to view quiz
+ * ---call question component in here, import this to new component to access quizzes---
+ * Add new component for viewing inside of quiz(when button clicked show all questions)
+ * Add some questions
+ * add question properties and stuff
+ * LEARN TESTS
+ */
+
 interface Quiz {
     title: string;
     author: string;
@@ -27,6 +40,8 @@ const Inital_Quizzes: Quiz[] = [
 
 export function QuizzesView(): JSX.Element {
     const [quizzes, setQuizzes] = useState<Quiz[]>(Inital_Quizzes);
+    const [editMode, setEditMode] = useState<boolean>(false);
+
     //const [numQuizzes, updateNum] = useState<number>(0);
 
     function removeQuizByTitle(quizTitle: string) {
@@ -59,14 +74,26 @@ export function QuizzesView(): JSX.Element {
 
     return (
         <div>
-            <h3>Quiz List: </h3>
+            <h3> Quiz List: </h3>
+            <div>
+                <Form.Check
+                    type="switch"
+                    id="can-edit-quizzes"
+                    label={<h5>Edit Quiz List</h5>}
+                    checked={editMode}
+                    onChange={() => setEditMode(!editMode)}
+                />
+            </div>
             <div>
                 <ol>
                     {quizzes.map(
                         (quiz: Quiz): JSX.Element => (
                             <li key={quiz.title}>
-                                {quiz.title} ({quiz.author}):
+                                {quiz.title + " - " + quiz.author + "  "}
                                 <Button
+                                    style={{
+                                        backgroundColor: "black"
+                                    }}
                                     onClick={() =>
                                         removeQuizByTitle(quiz.title)
                                     }
@@ -81,6 +108,32 @@ export function QuizzesView(): JSX.Element {
                                     }}
                                 >
                                     {quiz.description}
+                                    <span>
+                                        <div
+                                            style={{
+                                                border: "1px solid black",
+                                                padding: "4px",
+                                                width: "200px"
+                                            }}
+                                        >
+                                            Question Count:
+                                        </div>
+                                        <div
+                                            style={{
+                                                border: "1px solid black",
+                                                padding: "4px",
+                                                width: "200px"
+                                            }}
+                                        >
+                                            <Button
+                                                style={{
+                                                    backgroundColor: "grey"
+                                                }}
+                                            >
+                                                Click to view this Quiz
+                                            </Button>
+                                        </div>
+                                    </span>
                                 </div>
                                 <div
                                     style={{
@@ -93,7 +146,13 @@ export function QuizzesView(): JSX.Element {
                         )
                     )}
                 </ol>
-                <AddQuiz appendQuiz={appendQuiz}></AddQuiz>
+                <div>
+                    {editMode ? (
+                        <AddQuiz appendQuiz={appendQuiz}></AddQuiz>
+                    ) : (
+                        <div> Change to edit mode to add new quiz </div>
+                    )}
+                </div>
             </div>
         </div>
     );
@@ -112,6 +171,7 @@ export function AddQuiz({ appendQuiz }: AddQuizBoxParams): JSX.Element {
                     <Form.Label>Title:</Form.Label>
                     <Form.Control
                         type="text"
+                        //width={"1000px"}
                         value={title}
                         onChange={(event: ChangeEvent) =>
                             setTitle(event.target.value)
@@ -124,6 +184,7 @@ export function AddQuiz({ appendQuiz }: AddQuizBoxParams): JSX.Element {
                     <Form.Label>Author:</Form.Label>
                     <Form.Control
                         type="text"
+                        //width={"1000px"}
                         value={author}
                         onChange={(event: ChangeEvent) =>
                             setAuthor(event.target.value)
@@ -135,7 +196,7 @@ export function AddQuiz({ appendQuiz }: AddQuizBoxParams): JSX.Element {
                 <Form.Group controlId="formQuizDescription">
                     <Form.Label>Description:</Form.Label>
                     <Form.Control
-                        type="text"
+                        as="textarea"
                         value={description}
                         onChange={(event: ChangeEvent) =>
                             setDescription(event.target.value)
@@ -144,7 +205,12 @@ export function AddQuiz({ appendQuiz }: AddQuizBoxParams): JSX.Element {
                 </Form.Group>
             </Form>
             {/**setquestionCount(0)*/}
-            <Button onClick={() => appendQuiz(title, author, description)}>
+            <Button
+                style={{
+                    backgroundColor: "black"
+                }}
+                onClick={() => appendQuiz(title, author, description)}
+            >
                 Add Quiz
             </Button>
         </div>

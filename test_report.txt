@@ -7,6 +7,7 @@ PASS src/arrays.test.ts
 PASS src/objects.test.ts
 PASS src/components/StartAttempt.test.tsx
 PASS src/components/TwoDice.test.tsx
+PASS src/quizzer/QuizzesView.test.tsx
 PASS src/form-components/MultipleChoiceQuestion.test.tsx
 PASS src/bad-components/ChooseTeam.test.tsx
 PASS src/bad-components/DoubleHalf.test.tsx
@@ -23,45 +24,45 @@ PASS src/bad-components/ColoredBox.test.tsx
 PASS src/bad-components/ShoveBox.test.tsx
 PASS src/quizzer/Quizzer.test.tsx
 PASS src/App.test.tsx
------------------------------|---------|----------|---------|---------|-------------------
-File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
------------------------------|---------|----------|---------|---------|-------------------
-All files                    |   82.97 |    81.25 |   79.62 |   82.53 |                   
- src                         |   99.42 |    96.66 |     100 |    99.4 |                   
-  App.tsx                    |     100 |      100 |     100 |     100 |                   
-  arrays.ts                  |   98.24 |      100 |     100 |   98.07 | 155               
-  functions.ts               |     100 |      100 |     100 |     100 |                   
-  nested.ts                  |     100 |      100 |     100 |     100 |                   
-  objects.ts                 |     100 |    83.33 |     100 |     100 | 47-51             
- src/bad-components          |     100 |       50 |     100 |     100 |                   
-  ChooseTeam.tsx             |     100 |       50 |     100 |     100 | 25                
-  ColoredBox.tsx             |     100 |      100 |     100 |     100 |                   
-  DoubleHalf.tsx             |     100 |      100 |     100 |     100 |                   
-  ShoveBox.tsx               |     100 |      100 |     100 |     100 |                   
- src/components              |     100 |      100 |     100 |     100 |                   
-  ChangeType.tsx             |     100 |      100 |     100 |     100 |                   
-  Counter.tsx                |     100 |      100 |     100 |     100 |                   
-  CycleHoliday.tsx           |     100 |      100 |     100 |     100 |                   
-  RevealAnswer.tsx           |     100 |      100 |     100 |     100 |                   
-  StartAttempt.tsx           |     100 |      100 |     100 |     100 |                   
-  TwoDice.tsx                |     100 |      100 |     100 |     100 |                   
- src/form-components         |     100 |      100 |     100 |     100 |                   
-  ChangeColor.tsx            |     100 |      100 |     100 |     100 |                   
-  CheckAnswer.tsx            |     100 |      100 |     100 |     100 |                   
-  EditMode.tsx               |     100 |      100 |     100 |     100 |                   
-  GiveAttempts.tsx           |     100 |      100 |     100 |     100 |                   
-  MultipleChoiceQuestion.tsx |     100 |      100 |     100 |     100 |                   
- src/interfaces              |       0 |        0 |       0 |       0 |                   
-  answer.ts                  |       0 |        0 |       0 |       0 |                   
-  question.ts                |       0 |        0 |       0 |       0 |                   
- src/quizzer                 |    12.9 |       10 |    8.33 |    12.9 |                   
-  QuizQuestionView.tsx       |       0 |        0 |       0 |       0 | 34-328            
-  Quizzer.tsx                |     100 |      100 |     100 |     100 |                   
-  QuizzesView.tsx            |   30.43 |       50 |   15.38 |   30.43 | 68-92,104,118-248 
------------------------------|---------|----------|---------|---------|-------------------
+-----------------------------|---------|----------|---------|---------|-------------------------------
+File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s             
+-----------------------------|---------|----------|---------|---------|-------------------------------
+All files                    |   88.23 |    88.59 |   84.56 |   87.93 |                               
+ src                         |   99.42 |    96.66 |     100 |    99.4 |                               
+  App.tsx                    |     100 |      100 |     100 |     100 |                               
+  arrays.ts                  |   98.24 |      100 |     100 |   98.07 | 155                           
+  functions.ts               |     100 |      100 |     100 |     100 |                               
+  nested.ts                  |     100 |      100 |     100 |     100 |                               
+  objects.ts                 |     100 |    83.33 |     100 |     100 | 47-51                         
+ src/bad-components          |     100 |       50 |     100 |     100 |                               
+  ChooseTeam.tsx             |     100 |       50 |     100 |     100 | 25                            
+  ColoredBox.tsx             |     100 |      100 |     100 |     100 |                               
+  DoubleHalf.tsx             |     100 |      100 |     100 |     100 |                               
+  ShoveBox.tsx               |     100 |      100 |     100 |     100 |                               
+ src/components              |     100 |      100 |     100 |     100 |                               
+  ChangeType.tsx             |     100 |      100 |     100 |     100 |                               
+  Counter.tsx                |     100 |      100 |     100 |     100 |                               
+  CycleHoliday.tsx           |     100 |      100 |     100 |     100 |                               
+  RevealAnswer.tsx           |     100 |      100 |     100 |     100 |                               
+  StartAttempt.tsx           |     100 |      100 |     100 |     100 |                               
+  TwoDice.tsx                |     100 |      100 |     100 |     100 |                               
+ src/form-components         |     100 |      100 |     100 |     100 |                               
+  ChangeColor.tsx            |     100 |      100 |     100 |     100 |                               
+  CheckAnswer.tsx            |     100 |      100 |     100 |     100 |                               
+  EditMode.tsx               |     100 |      100 |     100 |     100 |                               
+  GiveAttempts.tsx           |     100 |      100 |     100 |     100 |                               
+  MultipleChoiceQuestion.tsx |     100 |      100 |     100 |     100 |                               
+ src/interfaces              |       0 |        0 |       0 |       0 |                               
+  answer.ts                  |       0 |        0 |       0 |       0 |                               
+  question.ts                |       0 |        0 |       0 |       0 |                               
+ src/quizzer                 |   40.32 |    54.54 |   30.55 |   40.32 |                               
+  QuizQuestionView.tsx       |   28.94 |     37.5 |   22.72 |   28.94 | 53-82,107-117,145-279,307-330 
+  Quizzer.tsx                |     100 |      100 |     100 |     100 |                               
+  QuizzesView.tsx            |   56.52 |      100 |   38.46 |   56.52 | 77-101,129,228-263            
+-----------------------------|---------|----------|---------|---------|-------------------------------
 
-Test Suites: 21 passed, 21 total
-Tests:       135 passed, 135 total
+Test Suites: 22 passed, 22 total
+Tests:       146 passed, 146 total
 Snapshots:   0 total
-Time:        15.273 s
+Time:        17.758 s
 Ran all test suites.

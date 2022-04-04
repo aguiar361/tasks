@@ -1,15 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { QuestionsView } from "./QuizQuestionView";
 
 /**
- * Add button so that quiz can only be added in edit mode
- *      if in edit mode from button... then show add question stuff... maybe make new component and move add question?
- * Add box to show number of questions in quiz
+ * Try figuring out props for array questions state
+ * else:
+ *      Do EDIT QUESTIONS????, THE TESTSSSS
+ *      Sum Points
  * -
- * Add button to view quiz
- * ---call question component in here, import this to new component to access quizzes---
- * Add new component for viewing inside of quiz(when button clicked show all questions)
  * Add some questions
  * add question properties and stuff
  * LEARN TESTS
@@ -38,10 +37,31 @@ const Inital_Quizzes: Quiz[] = [
     }
 ];
 
+export interface Question {
+    belongingTo: string;
+    type: string;
+    question: string;
+    anwser: string;
+    published: boolean;
+    points: string;
+}
+
+export const Inital_Questions: Question[] = [
+    {
+        belongingTo: "New Quiz",
+        type: "short_answer_question",
+        question:
+            "This is a sample question to be shown on the sample quiz. The correct answer is 'Sample Quiz.' What quiz is this?",
+        anwser: "Sample Quiz",
+        published: true,
+        points: "1"
+    }
+];
+
 export function QuizzesView(): JSX.Element {
     const [quizzes, setQuizzes] = useState<Quiz[]>(Inital_Quizzes);
     const [editMode, setEditMode] = useState<boolean>(false);
-
+    const [seeQuestions, setseeQuestions] = useState<boolean>(false);
     //const [numQuizzes, updateNum] = useState<number>(0);
 
     function removeQuizByTitle(quizTitle: string) {
@@ -104,7 +124,7 @@ export function QuizzesView(): JSX.Element {
                                     style={{
                                         border: "1px solid black",
                                         padding: "4px",
-                                        width: "1000px"
+                                        width: "1250px"
                                     }}
                                 >
                                     {quiz.description}
@@ -113,10 +133,10 @@ export function QuizzesView(): JSX.Element {
                                             style={{
                                                 border: "1px solid black",
                                                 padding: "4px",
-                                                width: "200px"
+                                                width: "280px"
                                             }}
                                         >
-                                            Question Count:
+                                            Click below to see Question Count
                                         </div>
                                         <div
                                             style={{
@@ -129,9 +149,25 @@ export function QuizzesView(): JSX.Element {
                                                 style={{
                                                     backgroundColor: "grey"
                                                 }}
+                                                onClick={() => {
+                                                    setseeQuestions(
+                                                        !seeQuestions
+                                                    );
+                                                }}
                                             >
                                                 Click to view this Quiz
                                             </Button>
+                                        </div>
+                                        <div>
+                                            {seeQuestions ? (
+                                                <div>
+                                                    <QuestionsView
+                                                        impString={quiz.title}
+                                                    ></QuestionsView>
+                                                </div>
+                                            ) : (
+                                                <div> </div>
+                                            )}
                                         </div>
                                     </span>
                                 </div>

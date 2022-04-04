@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { QuestionType } from "../interfaces/question";
+//import { QuestionType } from "../interfaces/question";
 import { Question, Inital_Questions } from "./QuizzesView";
 
 interface AddQuestionBoxParams {
@@ -26,15 +26,18 @@ interface checkAnswer {
     anwser: string;
 }
 
+interface questionList {
+    questionsforcount: Question[];
+}
+
 export function QuestionsView({ impString }: titleProps): JSX.Element {
     const [questions, setQuestions] = useState<Question[]>(Inital_Questions);
     const [editQuestion, setEditQuestion] = useState<boolean>(false);
-    const [questionType, whatQuestionType] = useState<QuestionType>(
-        "short_answer_question"
-    );
+    //const [questionType, whatQuestionType] = useState<QuestionType>("short_answer_question");
     const [publishedOnly, setpublishedOnly] = useState<boolean>(false);
     //const [editSpecQuestion, seteditSpecQuestion] = useState<string>("");
 
+    /*
     const QUESTION_TRANSITIONS: Record<QuestionType, QuestionType> = {
         short_answer_question: "multiple_choice_question",
         multiple_choice_question: "short_answer_question"
@@ -44,6 +47,7 @@ export function QuestionsView({ impString }: titleProps): JSX.Element {
         const newType = QUESTION_TRANSITIONS[questionType];
         whatQuestionType(newType);
     }
+    */
 
     function removeQuestionByQuestion(questionToGo: string) {
         const modifiedQuestions = questions.filter(
@@ -81,10 +85,18 @@ export function QuestionsView({ impString }: titleProps): JSX.Element {
     const questionsBelonging = questions.filter(
         (question: Question): boolean => question.belongingTo === impString
     );
-    //let lastQuestion: Question;
 
+    let counttt = 0;
     return (
         <div>
+            <div>
+                {questions.forEach((question: Question): number =>
+                    question.belongingTo === impString
+                        ? (counttt += 1)
+                        : (counttt += 0)
+                )}
+                Question Count: {counttt}
+            </div>
             <div>
                 <Form.Check
                     type="switch"
@@ -116,27 +128,30 @@ export function QuestionsView({ impString }: titleProps): JSX.Element {
                                             : ""
                                         : question.question}
                                     {publishedOnly ? (
-                                        question.published === true ? (
-                                            <div>
-                                                <CheckAnswer
-                                                    anwser={question.anwser}
-                                                ></CheckAnswer>
-                                                <Button
-                                                    style={{
-                                                        backgroundColor: "black"
-                                                    }}
-                                                    onClick={() =>
-                                                        removeQuestionByQuestion(
-                                                            question.question
-                                                        )
-                                                    }
-                                                >
-                                                    Delete
-                                                </Button>
-                                            </div>
-                                        ) : (
-                                            <div></div>
-                                        )
+                                        <div>
+                                            {question.published === true ? (
+                                                <div>
+                                                    <CheckAnswer
+                                                        anwser={question.anwser}
+                                                    ></CheckAnswer>
+                                                    <Button
+                                                        style={{
+                                                            backgroundColor:
+                                                                "black"
+                                                        }}
+                                                        onClick={() =>
+                                                            removeQuestionByQuestion(
+                                                                question.question
+                                                            )
+                                                        }
+                                                    >
+                                                        Delete
+                                                    </Button>
+                                                </div>
+                                            ) : (
+                                                <div></div>
+                                            )}
+                                        </div>
                                     ) : (
                                         <CheckAnswer
                                             anwser={question.anwser}
@@ -178,8 +193,7 @@ export function AddQuestion({
     const [published, setPublished] = useState<boolean>(true);
     const [points, setPoints] = useState<string>("1");
 
-    //const [questionCount, setquestionCount] = useState<number>(0);
-    const [Question, SETQUESTION] = useState<Question>();
+    //const [Question, SETQUESTION] = useState<Question>();
 
     return (
         <div>
@@ -299,8 +313,17 @@ export function CheckAnswer({ anwser }: checkAnswer): JSX.Element {
     );
 }
 
-export function Editcode(): JSX.Element {
-    const [newDat, setNewDat] = useState<string>("");
+export function QuestionCount(
+    { impString }: titleProps,
+    { questionsforcount }: questionList
+): JSX.Element {
+    const [numQuestions, setNumQuestions] = useState<number>(0);
 
-    return <div>Insert new datat from main function</div>;
+    questionsforcount.map((question: Question): void =>
+        question.belongingTo === impString
+            ? setNumQuestions(numQuestions + 1)
+            : setNumQuestions(numQuestions + 0)
+    );
+
+    return <div>Question Count: {numQuestions}</div>;
 }

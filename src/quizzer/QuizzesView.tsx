@@ -6,7 +6,6 @@ import { QuestionsView } from "./QuizQuestionView";
 /**
  * Try figuring out props for array questions state
  * else:
- *      ADD NUMBER QUESTIONS TO QUIZZES
  *      Do EDIT QUESTIONS????, THE TESTSSSS
  *      Sum Points
  * -
@@ -64,7 +63,6 @@ export function QuizzesView(): JSX.Element {
     const [editMode, setEditMode] = useState<boolean>(false);
     const [seeQuestions, setseeQuestions] = useState<boolean>(false);
     //const [numQuizzes, updateNum] = useState<number>(0);
-    //const [impString, setImpString] = useState<string>("");
 
     function removeQuizByTitle(quizTitle: string) {
         const modifiedQuizzes = quizzes.filter(
@@ -135,10 +133,10 @@ export function QuizzesView(): JSX.Element {
                                             style={{
                                                 border: "1px solid black",
                                                 padding: "4px",
-                                                width: "200px"
+                                                width: "280px"
                                             }}
                                         >
-                                            Question Count:
+                                            Click below to see Question Count
                                         </div>
                                         <div
                                             style={{
@@ -162,9 +160,11 @@ export function QuizzesView(): JSX.Element {
                                         </div>
                                         <div>
                                             {seeQuestions ? (
-                                                <QuestionsView
-                                                    impString={quiz.title}
-                                                ></QuestionsView>
+                                                <div>
+                                                    <QuestionsView
+                                                        impString={quiz.title}
+                                                    ></QuestionsView>
+                                                </div>
                                             ) : (
                                                 <div> </div>
                                             )}

@@ -21,7 +21,7 @@ interface Quiz {
     //questionCount: number;
 }
 
-interface AddQuizBoxParams {
+export interface AddQuizBoxParams {
     // Consumes a function that consumes data and returns nothing, passes to a React State Setter).
     appendQuiz: (title: string, author: string, description: string) => void;
 }
@@ -48,11 +48,20 @@ export interface Question {
 
 export const Inital_Questions: Question[] = [
     {
+        belongingTo: "Sample Quiz",
+        type: "short_answer_question",
+        question:
+            "This is a sample question to be shown on the Sample quiz. The correct answer is 'Sample Quiz.' What quiz is this?",
+        anwser: "Sample Quiz",
+        published: true,
+        points: "1"
+    },
+    {
         belongingTo: "New Quiz",
         type: "short_answer_question",
         question:
-            "This is a sample question to be shown on the sample quiz. The correct answer is 'Sample Quiz.' What quiz is this?",
-        anwser: "Sample Quiz",
+            "This is a sample question to be shown on the New quiz. The correct answer is 'New Quiz.' What quiz is this?",
+        anwser: "New Quiz",
         published: true,
         points: "1"
     }
@@ -99,6 +108,7 @@ export function QuizzesView(): JSX.Element {
                 <Form.Check
                     type="switch"
                     id="can-edit-quizzes"
+                    role="can-edit-quizzes"
                     label={<h5>Edit Quiz List</h5>}
                     checked={editMode}
                     onChange={() => setEditMode(!editMode)}
@@ -110,16 +120,20 @@ export function QuizzesView(): JSX.Element {
                         (quiz: Quiz): JSX.Element => (
                             <li key={quiz.title}>
                                 {quiz.title + " - " + quiz.author + "  "}
-                                <Button
-                                    style={{
-                                        backgroundColor: "black"
-                                    }}
-                                    onClick={() =>
-                                        removeQuizByTitle(quiz.title)
-                                    }
-                                >
-                                    Delete
-                                </Button>
+                                {editMode ? (
+                                    <Button
+                                        style={{
+                                            backgroundColor: "black"
+                                        }}
+                                        onClick={() =>
+                                            removeQuizByTitle(quiz.title)
+                                        }
+                                    >
+                                        Delete
+                                    </Button>
+                                ) : (
+                                    <div></div>
+                                )}
                                 <div
                                     style={{
                                         border: "1px solid black",
@@ -154,6 +168,7 @@ export function QuizzesView(): JSX.Element {
                                                         !seeQuestions
                                                     );
                                                 }}
+                                                role="viewQuizButton"
                                             >
                                                 Click to view this Quiz
                                             </Button>

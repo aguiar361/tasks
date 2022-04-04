@@ -101,6 +101,7 @@ export function QuestionsView({ impString }: titleProps): JSX.Element {
                 <Form.Check
                     type="switch"
                     id="show-published-questions"
+                    role="show-published-questions"
                     label="Published Only"
                     checked={publishedOnly}
                     onChange={() => setpublishedOnly(!publishedOnly)}
@@ -110,6 +111,7 @@ export function QuestionsView({ impString }: titleProps): JSX.Element {
                 <Form.Check
                     type="switch"
                     id="can-edit-question"
+                    role="can-edit-question"
                     label="Edit Question"
                     checked={editQuestion}
                     onChange={() => setEditQuestion(!editQuestion)}
